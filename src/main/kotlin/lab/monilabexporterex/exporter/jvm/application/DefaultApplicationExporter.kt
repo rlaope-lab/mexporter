@@ -1,0 +1,3 @@
+package lab.monilabexporterex.exporter.jvm.application
+
+class DefaultApplicationExporter

@@ -9,5 +9,4 @@ class MonilabExporterExApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }
