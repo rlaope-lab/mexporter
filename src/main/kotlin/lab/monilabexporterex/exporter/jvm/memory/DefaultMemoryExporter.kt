@@ -2,8 +2,10 @@ package lab.monilabexporterex.exporter.jvm.memory
 
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
 import lab.monilabexporterex.exporter.jvm.MemoryExporter
+import org.springframework.stereotype.Component
 import java.lang.management.ManagementFactory
 
+@Component
 class DefaultMemoryExporter : MemoryExporter {
     override fun getMemoryInfo(): JvmMonitoringData.Memory {
         val memoryBean = ManagementFactory.getMemoryMXBean()
