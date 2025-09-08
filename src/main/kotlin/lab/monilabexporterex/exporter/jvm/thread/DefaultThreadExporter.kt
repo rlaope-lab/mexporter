@@ -2,9 +2,11 @@ package lab.monilabexporterex.exporter.jvm.thread
 
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
 import lab.monilabexporterex.exporter.jvm.ThreadExporter
+import org.springframework.stereotype.Component
 import java.lang.management.ManagementFactory
 import java.lang.management.ThreadMXBean
 
+@Component
 class DefaultThreadExporter : ThreadExporter {
     override fun getThreadInfo(): JvmMonitoringData.Threads {
         val threadBean: ThreadMXBean = ManagementFactory.getThreadMXBean()
@@ -17,7 +19,7 @@ class DefaultThreadExporter : ThreadExporter {
                     null
                 }
             }
-            .groupingBy { it?.name }
+            .groupingBy { it?.name ?: "" }
             .eachCount()
 
         return JvmMonitoringData.Threads(
@@ -32,7 +34,7 @@ class DefaultThreadExporter : ThreadExporter {
                     } catch (_: Exception) { 0 }
                 }
             } else 0,
-            states = states ?: emptyMap()
+            states = states
         )
     }
 }
