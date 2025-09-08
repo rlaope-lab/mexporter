@@ -31,17 +31,20 @@ class ExporterTest {
 
             log.info("==== Sample #$i ====")
 
-            log.info("[Memory] used={} max={} committed={} eden={} survivor={} old={} bufferPool={} maxDirect={}",
+            log.info(
+                "[Memory] used={} max={} committed={} eden={} survivor={} old={} bufferPool={} maxDirect={}",
                 memory.used, memory.max, memory.committed,
                 memory.eden, memory.survivor, memory.old,
                 memory.bufferPoolUsed, memory.maxDirectMemorySize
             )
 
-            log.info("[GC] count={} time={}ms pause={}ms allocRate={}B/s liveData={} strategy={}",
+            log.info(
+                "[GC] count={} time={}ms pause={}ms allocRate={}B/s liveData={} strategy={}",
                 gc.count, gc.time, gc.pause, gc.allocationRate, gc.liveDataSize, gc.gcStrategy
             )
 
-            log.info("[Threads] count={} daemon={} peak={} deadlocked={} cpuTime={} states={}",
+            log.info(
+                "[Threads] count={} daemon={} peak={} deadlocked={} cpuTime={} states={}",
                 threads.count, threads.daemonCount, threads.peakCount,
                 threads.deadlockedCount, threads.cpuTime, threads.states
             )
