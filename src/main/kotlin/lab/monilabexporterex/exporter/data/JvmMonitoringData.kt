@@ -1,4 +1,4 @@
-package lab.monilabexporterex.monilab.data
+package lab.monilabexporterex.exporter.data
 
 data class JvmMonitoringData(
     val hostname: String
@@ -50,7 +50,7 @@ data class JvmMonitoringData(
         val preferIPv4: Boolean
     )
 
-    data class Classes(
+    data class ClassLoadingInfo(
         val loaded: Int,
         val unloaded: Long,
         val codeCacheUsed: Long,
