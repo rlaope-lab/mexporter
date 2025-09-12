@@ -1,5 +1,6 @@
 package lab.monilabexporterex.exporter
 
+import lab.monilabexporterex.exporter.jvm.cpu.DefaultCpuExporter
 import lab.monilabexporterex.exporter.jvm.gc.DefaultGcExporter
 import lab.monilabexporterex.exporter.jvm.memory.DefaultMemoryExporter
 import lab.monilabexporterex.exporter.jvm.thread.DefaultThreadExporter
@@ -20,6 +21,9 @@ class ExporterTest {
     @Autowired
     lateinit var threadExporter: DefaultThreadExporter
 
+    @Autowired
+    lateinit var cpuExporter: DefaultCpuExporter
+
     private val log = LoggerFactory.getLogger(ExporterTest::class.java)
 
     @Test
@@ -28,6 +32,7 @@ class ExporterTest {
             val memory = memoryExporter.getMemoryInfo()
             val gc = gcExporter.getGcInfo()
             val threads = threadExporter.getThreadInfo()
+            val cpu = cpuExporter.getCpuInfo()
 
             log.info("==== Sample #$i ====")
 
@@ -47,6 +52,12 @@ class ExporterTest {
                 "[Threads] count={} daemon={} peak={} deadlocked={} cpuTime={} states={}",
                 threads.count, threads.daemonCount, threads.peakCount,
                 threads.deadlockedCount, threads.cpuTime, threads.states
+            )
+
+            log.info(
+                "[CPU] processUsage={} systemUsage={} uptime={} startTime={} uptime={} openFds={}",
+                cpu.processUsage, cpu.systemUsage, cpu.uptime,
+                cpu.startTime, cpu.uptime, cpu.openFds
             )
 
             Thread.sleep(1000) // 1초 간격
