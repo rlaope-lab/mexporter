@@ -4,6 +4,7 @@ import lab.monilabexporterex.exporter.jvm.application.DefaultApplicationExporter
 import lab.monilabexporterex.exporter.jvm.cpu.DefaultCpuExporter
 import lab.monilabexporterex.exporter.jvm.gc.DefaultGcExporter
 import lab.monilabexporterex.exporter.jvm.memory.DefaultMemoryExporter
+import lab.monilabexporterex.exporter.jvm.network.DefaultNetworkExporter
 import lab.monilabexporterex.exporter.jvm.thread.DefaultThreadExporter
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
@@ -28,6 +29,9 @@ class ExporterTest {
     @Autowired
     lateinit var applicationExporter: DefaultApplicationExporter
 
+    @Autowired
+    lateinit var networkExporter: DefaultNetworkExporter
+
     private val log = LoggerFactory.getLogger(ExporterTest::class.java)
 
     @Test
@@ -38,6 +42,7 @@ class ExporterTest {
             val threads = threadExporter.getThreadInfo()
             val cpu = cpuExporter.getCpuInfo()
             val application = applicationExporter.getApplicationInfo()
+            val network = networkExporter.getNetworkInfo()
 
             log.info("==== Sample #$i ====")
 
@@ -70,6 +75,12 @@ class ExporterTest {
                 application.httpRequestsCount, application.httpLatency, application.dbConnectionsActive,
                 application.dbConnectionsActive, application.dbConnectionsMax, application.queueTasksPending,
                 application.customMetrics
+            )
+
+            log.info(
+                "[Network] bytesSent={} bytesReceived={} preferIPv4={} openSockets={} tcpConnections={} tcpEstablished={}",
+                network.bytesSent, network.bytesReceived, network.preferIPv4,
+                network.openSockets, network.tcpConnections, network.tcpEstablished
             )
 
             Thread.sleep(1000) // 1초 간격
