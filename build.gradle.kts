@@ -29,6 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.micrometer:micrometer-core")
     implementation("com.zaxxer:HikariCP")
+    implementation("com.github.oshi:oshi-core:6.4.3")
 }
 
 kotlin {
