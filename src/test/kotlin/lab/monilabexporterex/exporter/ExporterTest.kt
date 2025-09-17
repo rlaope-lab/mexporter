@@ -1,5 +1,6 @@
 package lab.monilabexporterex.exporter
 
+import lab.monilabexporterex.exporter.jvm.application.DefaultApplicationExporter
 import lab.monilabexporterex.exporter.jvm.cpu.DefaultCpuExporter
 import lab.monilabexporterex.exporter.jvm.gc.DefaultGcExporter
 import lab.monilabexporterex.exporter.jvm.memory.DefaultMemoryExporter
@@ -24,6 +25,9 @@ class ExporterTest {
     @Autowired
     lateinit var cpuExporter: DefaultCpuExporter
 
+    @Autowired
+    lateinit var applicationExporter: DefaultApplicationExporter
+
     private val log = LoggerFactory.getLogger(ExporterTest::class.java)
 
     @Test
@@ -33,6 +37,7 @@ class ExporterTest {
             val gc = gcExporter.getGcInfo()
             val threads = threadExporter.getThreadInfo()
             val cpu = cpuExporter.getCpuInfo()
+            val application = applicationExporter.getApplicationInfo()
 
             log.info("==== Sample #$i ====")
 
@@ -58,6 +63,13 @@ class ExporterTest {
                 "[CPU] processUsage={} systemUsage={} uptime={} startTime={} uptime={} openFds={}",
                 cpu.processUsage, cpu.systemUsage, cpu.uptime,
                 cpu.startTime, cpu.uptime, cpu.openFds
+            )
+
+            log.info(
+                "[Application] httpRequestsCount={} httpLatency={} dbConnectionsActive={} dbConnectionsActive={} dbConnectionsMax={} queueTasksPending={} customMetrics={}",
+                application.httpRequestsCount, application.httpLatency, application.dbConnectionsActive,
+                application.dbConnectionsActive, application.dbConnectionsMax, application.queueTasksPending,
+                application.customMetrics
             )
 
             Thread.sleep(1000) // 1초 간격
