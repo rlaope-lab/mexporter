@@ -36,6 +36,7 @@ class ExporterTest {
 
     @Test
     fun printJvmMetrics() {
+        val cpu = cpuExporter.getCpuInfo()
         val application = applicationExporter.getApplicationInfo()
         val network = networkExporter.getNetworkInfo()
 
@@ -43,7 +44,6 @@ class ExporterTest {
             val memory = memoryExporter.getMemoryInfo()
             val gc = gcExporter.getGcInfo()
             val threads = threadExporter.getThreadInfo()
-            val cpu = cpuExporter.getCpuInfo()
 
             log.info("==== Sample #$i ====")
 
@@ -65,16 +65,16 @@ class ExporterTest {
                 threads.deadlockedCount, threads.cpuTime, threads.states
             )
 
-            log.info(
-                "[CPU] processUsage={} systemUsage={} uptime={} startTime={} uptime={} openFds={}",
-                cpu.processUsage, cpu.systemUsage, cpu.uptime,
-                cpu.startTime, cpu.uptime, cpu.openFds
-            )
-
             Thread.sleep(1000) // 1초 간격
         }
 
         log.info("==== Single Sample ====")
+
+        log.info(
+            "[CPU] processUsage={} systemUsage={} uptime={} startTime={} uptime={} openFds={}",
+            cpu.processUsage, cpu.systemUsage, cpu.uptime,
+            cpu.startTime, cpu.uptime, cpu.openFds
+        )
 
         log.info(
             "[Application] httpRequestsCount={} httpLatency={} dbConnectionsActive={} dbConnectionsActive={} dbConnectionsMax={} queueTasksPending={} customMetrics={}",
