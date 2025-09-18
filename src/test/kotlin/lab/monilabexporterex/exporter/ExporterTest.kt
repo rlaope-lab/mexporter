@@ -36,13 +36,14 @@ class ExporterTest {
 
     @Test
     fun printJvmMetrics() {
+        val application = applicationExporter.getApplicationInfo()
+        val network = networkExporter.getNetworkInfo()
+
         repeat(5) { i ->
             val memory = memoryExporter.getMemoryInfo()
             val gc = gcExporter.getGcInfo()
             val threads = threadExporter.getThreadInfo()
             val cpu = cpuExporter.getCpuInfo()
-            val application = applicationExporter.getApplicationInfo()
-            val network = networkExporter.getNetworkInfo()
 
             log.info("==== Sample #$i ====")
 
@@ -70,20 +71,22 @@ class ExporterTest {
                 cpu.startTime, cpu.uptime, cpu.openFds
             )
 
-            log.info(
-                "[Application] httpRequestsCount={} httpLatency={} dbConnectionsActive={} dbConnectionsActive={} dbConnectionsMax={} queueTasksPending={} customMetrics={}",
-                application.httpRequestsCount, application.httpLatency, application.dbConnectionsActive,
-                application.dbConnectionsActive, application.dbConnectionsMax, application.queueTasksPending,
-                application.customMetrics
-            )
-
-            log.info(
-                "[Network] bytesSent={} bytesReceived={} preferIPv4={} openSockets={} tcpConnections={} tcpEstablished={}",
-                network.bytesSent, network.bytesReceived, network.preferIPv4,
-                network.openSockets, network.tcpConnections, network.tcpEstablished
-            )
-
             Thread.sleep(1000) // 1초 간격
         }
+
+        log.info("==== Single Sample ====")
+
+        log.info(
+            "[Application] httpRequestsCount={} httpLatency={} dbConnectionsActive={} dbConnectionsActive={} dbConnectionsMax={} queueTasksPending={} customMetrics={}",
+            application.httpRequestsCount, application.httpLatency, application.dbConnectionsActive,
+            application.dbConnectionsActive, application.dbConnectionsMax, application.queueTasksPending,
+            application.customMetrics
+        )
+
+        log.info(
+            "[Network] bytesSent={} bytesReceived={} preferIPv4={} openSockets={} tcpConnections={} tcpEstablished={}",
+            network.bytesSent, network.bytesReceived, network.preferIPv4,
+            network.openSockets, network.tcpConnections, network.tcpEstablished
+        )
     }
 }
