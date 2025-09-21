@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.io.OutputStream
-import java.net.HttpURLConnection
 import java.net.Socket
-import java.net.URL
 
 @SpringBootTest
 class ExporterTest {
@@ -50,7 +48,7 @@ class ExporterTest {
 
             // cpu 부하
             var sum = 0L
-            for (num in 1..1_000_000) {
+            for (num in 1..1_000) {
                 sum += num
             }
 
