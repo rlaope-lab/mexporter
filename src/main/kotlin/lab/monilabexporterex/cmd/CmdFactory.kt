@@ -1,4 +1,4 @@
-package lab.monilabexporterex.exporter.jvm.network
+package lab.monilabexporterex.cmd
 
 object CmdFactory {
     fun getCmdUtil(): CmdInterface {
