@@ -3,6 +3,7 @@ package lab.monilabexporterex.exporter.jvm.application
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.core.instrument.MeterRegistry
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
+import lab.monilabexporterex.exporter.jvm.ApplicationExporter
 import org.springframework.stereotype.Component
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.TimeUnit
@@ -12,8 +13,8 @@ class DefaultApplicationExporter(
     private val meterRegistry: MeterRegistry,
     private val dataSource: HikariDataSource? = null,
     private val taskQueue: BlockingQueue<*>? = null,
-) {
-    fun getApplicationInfo(): JvmMonitoringData.Application {
+) : ApplicationExporter {
+    override fun getApplicationInfo(): JvmMonitoringData.Application {
         val httpRequestsTimer = meterRegistry.find("http.server.requests").timer()
 
         val httpRequestsCount = httpRequestsTimer?.count() ?: 0L

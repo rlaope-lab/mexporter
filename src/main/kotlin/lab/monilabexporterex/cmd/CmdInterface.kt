@@ -1,4 +1,4 @@
-package lab.monilabexporterex.exporter.jvm.network
+package lab.monilabexporterex.cmd
 
 interface CmdInterface {
     fun getTcpConnections(): Int
