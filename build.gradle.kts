@@ -42,3 +42,12 @@ kotlin {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+ktlint {
+    disabledRules.set(setOf("max-line-length"))
+
+    filter {
+        exclude("**/src/test/**")
+        exclude("**/generated/**")
+    }
+}
