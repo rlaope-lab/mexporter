@@ -1,8 +1,10 @@
 package lab.monilabexporterex.exporter.jvm
 
 import lab.monilabexporterex.exporter.JvmExporter
+import org.springframework.stereotype.Component
 import java.net.InetAddress
 
+@Component
 class JvmExporterImpl(
     private val memoryExporter: MemoryExporter,
     private val gcExporter: GcExporter,

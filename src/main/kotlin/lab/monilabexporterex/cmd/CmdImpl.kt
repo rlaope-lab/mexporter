@@ -1,4 +1,4 @@
-package lab.monilabexporterex.exporter.jvm.network
+package lab.monilabexporterex.cmd
 
 class LinuxCmdUtil : AbstractCmdUtil() {
     override fun tcpConnectionsCommand() = arrayOf("sh", "-c", "netstat -nat | wc -l")
