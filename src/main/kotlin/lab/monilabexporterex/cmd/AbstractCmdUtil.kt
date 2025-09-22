@@ -1,4 +1,4 @@
-package lab.monilabexporterex.exporter.jvm.network
+package lab.monilabexporterex.cmd
 
 abstract class AbstractCmdUtil : CmdInterface {
     protected abstract fun tcpConnectionsCommand(): Array<String>
