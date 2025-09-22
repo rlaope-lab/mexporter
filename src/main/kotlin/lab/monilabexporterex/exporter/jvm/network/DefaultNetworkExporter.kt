@@ -6,7 +6,6 @@ import oshi.SystemInfo
 
 @Component
 class DefaultNetworkExporter {
-
     private val systemInfo = SystemInfo()
     private val cmdUtil: CmdInterface = CmdFactory.getCmdUtil()
 
@@ -34,7 +33,7 @@ class DefaultNetworkExporter {
             tcpConnections = tcpConnections,
             tcpEstablished = tcpEstablished,
             openSockets = openSockets,
-            preferIPv4 = preferIPv4
+            preferIPv4 = preferIPv4,
         )
     }
 }
