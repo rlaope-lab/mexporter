@@ -54,3 +54,13 @@ tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask> {
         enabled = false
     }
 }
+
+gradle.taskGraph.whenReady {
+    if (gradle.startParameter.taskNames.contains("build") &&
+        gradle.startParameter.excludedTaskNames.contains("test")
+    ) {
+        tasks.matching { it.name.startsWith("ktlint") }.configureEach {
+            this.enabled = false
+        }
+    }
+}
