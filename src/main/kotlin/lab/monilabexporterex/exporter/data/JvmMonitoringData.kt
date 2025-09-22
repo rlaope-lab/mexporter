@@ -1,7 +1,7 @@
 package lab.monilabexporterex.exporter.data
 
 data class JvmMonitoringData(
-    val hostname: String
+    val hostname: String,
 ) {
     data class Memory(
         val used: Long,
@@ -11,7 +11,7 @@ data class JvmMonitoringData(
         val survivor: Long,
         val old: Long,
         val bufferPoolUsed: Long,
-        val maxDirectMemorySize: Long
+        val maxDirectMemorySize: Long,
     )
 
     data class Gc(
@@ -20,7 +20,7 @@ data class JvmMonitoringData(
         val pause: Long,
         val allocationRate: Double,
         val liveDataSize: Long,
-        val gcStrategy: String
+        val gcStrategy: String,
     )
 
     data class Threads(
@@ -29,7 +29,7 @@ data class JvmMonitoringData(
         val peakCount: Int,
         val deadlockedCount: Int,
         val cpuTime: Long,
-        val states: Map<String, Int>
+        val states: Map<String, Int>,
     )
 
     data class Cpu(
@@ -38,7 +38,7 @@ data class JvmMonitoringData(
         val uptime: Long,
         val startTime: Long,
         val loadAverage: Double,
-        val openFds: Long
+        val openFds: Long,
     )
 
     data class Network(
@@ -47,7 +47,7 @@ data class JvmMonitoringData(
         val tcpConnections: Int,
         val tcpEstablished: Int,
         val openSockets: Int,
-        val preferIPv4: Boolean
+        val preferIPv4: Boolean,
     )
 
     data class ClassLoadingInfo(
@@ -56,7 +56,7 @@ data class JvmMonitoringData(
         val codeCacheUsed: Long,
         val codeCacheMax: Long,
         val compilationTime: Long,
-        val reservedCodeCacheSize: Long
+        val reservedCodeCacheSize: Long,
     )
 
     data class Application(
@@ -65,6 +65,6 @@ data class JvmMonitoringData(
         val dbConnectionsActive: Int,
         val dbConnectionsMax: Int,
         val queueTasksPending: Int,
-        val customMetrics: Map<String, Any>
+        val customMetrics: Map<String, Any>,
     )
 }

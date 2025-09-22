@@ -15,7 +15,6 @@ import java.net.Socket
 
 @SpringBootTest
 class ExporterTest {
-
     @Autowired
     lateinit var memoryExporter: DefaultMemoryExporter
 
@@ -68,37 +67,60 @@ class ExporterTest {
                 "[Memory] used={} max={} committed={} eden={} survivor={} old={} bufferPool={} maxDirect={}",
                 memory.used, memory.max, memory.committed,
                 memory.eden, memory.survivor, memory.old,
-                memory.bufferPoolUsed, memory.maxDirectMemorySize
+                memory.bufferPoolUsed, memory.maxDirectMemorySize,
             )
 
             log.info(
                 "[GC] count={} time={}ms pause={}ms allocRate={}B/s liveData={} strategy={}",
-                gc.count, gc.time, gc.pause, gc.allocationRate, gc.liveDataSize, gc.gcStrategy
+                gc.count,
+                gc.time,
+                gc.pause,
+                gc.allocationRate,
+                gc.liveDataSize,
+                gc.gcStrategy,
             )
 
             log.info(
                 "[Threads] count={} daemon={} peak={} deadlocked={} cpuTime={} states={}",
-                threads.count, threads.daemonCount, threads.peakCount,
-                threads.deadlockedCount, threads.cpuTime, threads.states
+                threads.count,
+                threads.daemonCount,
+                threads.peakCount,
+                threads.deadlockedCount,
+                threads.cpuTime,
+                threads.states,
             )
 
             log.info(
                 "[CPU] processUsage={} systemUsage={} uptime={} startTime={} uptime={} openFds={}",
-                cpu.processUsage, cpu.systemUsage, cpu.uptime,
-                cpu.startTime, cpu.uptime, cpu.openFds
+                cpu.processUsage,
+                cpu.systemUsage,
+                cpu.uptime,
+                cpu.startTime,
+                cpu.uptime,
+                cpu.openFds,
             )
 
             log.info(
-                "[Application] httpRequestsCount={} httpLatency={} dbConnectionsActive={} dbConnectionsActive={} dbConnectionsMax={} queueTasksPending={} customMetrics={}",
-                application.httpRequestsCount, application.httpLatency, application.dbConnectionsActive,
-                application.dbConnectionsActive, application.dbConnectionsMax, application.queueTasksPending,
-                application.customMetrics
+                "[Application] httpRequestsCount={} httpLatency={} dbConnectionsActive={} dbConnectionsActive={}" +
+                    " dbConnectionsMax={} queueTasksPending={} customMetrics={}",
+                application.httpRequestsCount,
+                application.httpLatency,
+                application.dbConnectionsActive,
+                application.dbConnectionsActive,
+                application.dbConnectionsMax,
+                application.queueTasksPending,
+                application.customMetrics,
             )
 
             log.info(
-                "[Network] bytesSent={} bytesReceived={} preferIPv4={} openSockets={} tcpConnections={} tcpEstablished={}",
-                network.bytesSent, network.bytesReceived, network.preferIPv4,
-                network.openSockets, network.tcpConnections, network.tcpEstablished
+                "[Network] bytesSent={} bytesReceived={} preferIPv4={} openSockets={} tcpConnections={}" +
+                    " tcpEstablished={}",
+                network.bytesSent,
+                network.bytesReceived,
+                network.preferIPv4,
+                network.openSockets,
+                network.tcpConnections,
+                network.tcpEstablished,
             )
 
             Thread.sleep(1000) // 1초 간격
