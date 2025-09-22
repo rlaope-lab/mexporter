@@ -12,7 +12,6 @@ import javax.management.openmbean.CompositeData
 
 @Component
 class DefaultGcExporter : GcExporter {
-
     /**
      * 호출 시점에만 MXBean 읽기 → 불가능
      * pause: 누적값만 가능, 이벤트 없이는 못 구함
@@ -23,8 +22,11 @@ class DefaultGcExporter : GcExporter {
      */
 
     @Volatile private var lastPauseTime: Long = 0
+
     @Volatile private var lastLiveDataSize: Long = 0
+
     @Volatile private var lastHeapUsed: Long = 0
+
     @Volatile private var lastTimestamp: Long = System.currentTimeMillis()
 
     init {
@@ -48,7 +50,8 @@ class DefaultGcExporter : GcExporter {
                             }
                         }
                     },
-                    null, null
+                    null,
+                    null,
                 )
             }
         }
@@ -64,23 +67,27 @@ class DefaultGcExporter : GcExporter {
         val now = System.currentTimeMillis()
         val deltaTimeSec = (now - lastTimestamp) / 1000.0
 
-        val allocationRate = if (deltaTimeSec > 0) {
-            (heapUsage - lastHeapUsed).coerceAtLeast(0) / deltaTimeSec
-        } else 0.0
+        val allocationRate =
+            if (deltaTimeSec > 0) {
+                (heapUsage - lastHeapUsed).coerceAtLeast(0) / deltaTimeSec
+            } else {
+                0.0
+            }
 
         // 상태 갱신
         lastHeapUsed = heapUsage
         lastTimestamp = now
 
         val gcNames = gcBeans.map { it.name }.toSet()
-        val gcStrategy = when {
-            gcNames.any { it.contains("G1") } -> "G1"
-            gcNames.any { it.contains("ZGC") } -> "ZGC"
-            gcNames.any { it.contains("Shenandoah") } -> "Shenandoah"
-            gcNames.any { it.contains("Parallel") } -> "Parallel"
-            gcNames.any { it.contains("CMS") } -> "CMS"
-            else -> gcNames.joinToString(", ")
-        }
+        val gcStrategy =
+            when {
+                gcNames.any { it.contains("G1") } -> "G1"
+                gcNames.any { it.contains("ZGC") } -> "ZGC"
+                gcNames.any { it.contains("Shenandoah") } -> "Shenandoah"
+                gcNames.any { it.contains("Parallel") } -> "Parallel"
+                gcNames.any { it.contains("CMS") } -> "CMS"
+                else -> gcNames.joinToString(", ")
+            }
 
         return JvmMonitoringData.Gc(
             count = totalCount,
@@ -88,7 +95,7 @@ class DefaultGcExporter : GcExporter {
             pause = lastPauseTime,
             allocationRate = allocationRate,
             liveDataSize = lastLiveDataSize,
-            gcStrategy = gcStrategy
+            gcStrategy = gcStrategy,
         )
     }
 }

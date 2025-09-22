@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.25"
     id("org.springframework.boot") version "3.5.5"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
 }
 
 group = "lab"
@@ -40,4 +41,26 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+ktlint {
+    filter {
+        exclude("**/src/test/**")
+    }
+}
+
+tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask> {
+    if (name.contains("TestSourceSet")) {
+        enabled = false
+    }
+}
+
+gradle.taskGraph.whenReady {
+    if (gradle.startParameter.taskNames.contains("build") &&
+        gradle.startParameter.excludedTaskNames.contains("test")
+    ) {
+        tasks.matching { it.name.startsWith("ktlint") }.configureEach {
+            this.enabled = false
+        }
+    }
 }
