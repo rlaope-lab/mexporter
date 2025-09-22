@@ -101,7 +101,8 @@ class ExporterTest {
             )
 
             log.info(
-                "[Application] httpRequestsCount={} httpLatency={} dbConnectionsActive={} dbConnectionsActive={} dbConnectionsMax={} queueTasksPending={} customMetrics={}",
+                "[Application] httpRequestsCount={} httpLatency={} dbConnectionsActive={} dbConnectionsActive={}" +
+                    " dbConnectionsMax={} queueTasksPending={} customMetrics={}",
                 application.httpRequestsCount,
                 application.httpLatency,
                 application.dbConnectionsActive,
@@ -112,7 +113,8 @@ class ExporterTest {
             )
 
             log.info(
-                "[Network] bytesSent={} bytesReceived={} preferIPv4={} openSockets={} tcpConnections={} tcpEstablished={}",
+                "[Network] bytesSent={} bytesReceived={} preferIPv4={} openSockets={} tcpConnections={}" +
+                    " tcpEstablished={}",
                 network.bytesSent,
                 network.bytesReceived,
                 network.preferIPv4,
