@@ -44,10 +44,13 @@ tasks.withType<Test> {
 }
 
 ktlint {
-    disabledRules.set(setOf("max-line-length"))
-
     filter {
         exclude("**/src/test/**")
-        exclude("**/generated/**")
+    }
+}
+
+tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask> {
+    if (name.contains("TestSourceSet")) {
+        enabled = false
     }
 }
