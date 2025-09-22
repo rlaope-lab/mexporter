@@ -37,7 +37,7 @@ class DefaultNetworkExporter : NetworkExporter {
             tcpConnections = tcpConnections,
             tcpEstablished = tcpEstablished,
             openSockets = openSockets,
-            preferIPv4 = preferIPv4
+            preferIPv4 = preferIPv4,
         )
     }
 }

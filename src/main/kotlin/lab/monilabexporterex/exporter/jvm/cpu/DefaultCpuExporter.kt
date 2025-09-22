@@ -3,9 +3,9 @@ package lab.monilabexporterex.exporter.jvm.cpu
 import com.sun.management.OperatingSystemMXBean
 import com.sun.management.UnixOperatingSystemMXBean
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
-import lab.monilabexporterex.exporter.jvm.CpuExporter
 import org.springframework.stereotype.Component
 import java.lang.management.ManagementFactory
+import lab.monilabexporterex.exporter.jvm.CpuExporter
 
 @Component
 class DefaultCpuExporter : CpuExporter {
@@ -23,7 +23,7 @@ class DefaultCpuExporter : CpuExporter {
             uptime = runtime.uptime,
             startTime = runtime.startTime,
             loadAverage = osBean.systemLoadAverage,
-            openFds = openFds
+            openFds = openFds,
         )
     }
 }
