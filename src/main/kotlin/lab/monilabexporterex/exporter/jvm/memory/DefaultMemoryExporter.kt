@@ -12,8 +12,9 @@ class DefaultMemoryExporter : MemoryExporter {
         val heap = memoryBean.heapMemoryUsage
         val nonHeap = memoryBean.nonHeapMemoryUsage
 
-        val pools: Map<String, Long> = ManagementFactory.getMemoryPoolMXBeans()
-            .associate { it.name to it.usage.used }
+        val pools: Map<String, Long> =
+            ManagementFactory.getMemoryPoolMXBeans()
+                .associate { it.name to it.usage.used }
 
         return JvmMonitoringData.Memory(
             used = heap.used + nonHeap.used,
@@ -23,7 +24,7 @@ class DefaultMemoryExporter : MemoryExporter {
             survivor = pools["PS Survivor Space"] ?: 0,
             old = pools["PS Old Gen"] ?: 0,
             bufferPoolUsed = 0,
-            maxDirectMemorySize = Runtime.getRuntime().maxMemory()
+            maxDirectMemorySize = Runtime.getRuntime().maxMemory(),
         )
     }
 }

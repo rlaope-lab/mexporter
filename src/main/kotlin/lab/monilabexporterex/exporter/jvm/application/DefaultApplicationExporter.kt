@@ -19,21 +19,24 @@ class DefaultApplicationExporter(
 
         val httpRequestsCount = httpRequestsTimer?.count() ?: 0L
 
-        val httpLatency = httpRequestsTimer?.takeIf { it.count() > 0 }
-            ?.let { it.totalTime(TimeUnit.MILLISECONDS) / it.count() }
-            ?: 0.0
+        val httpLatency =
+            httpRequestsTimer?.takeIf { it.count() > 0 }
+                ?.let { it.totalTime(TimeUnit.MILLISECONDS) / it.count() }
+                ?: 0.0
 
-        val dbConnectionsActive = try {
-            dataSource?.hikariPoolMXBean?.activeConnections ?: 0
-        } catch (ex: Exception) {
-            0
-        }
+        val dbConnectionsActive =
+            try {
+                dataSource?.hikariPoolMXBean?.activeConnections ?: 0
+            } catch (ex: Exception) {
+                0
+            }
 
-        val dbConnectionsMax = try {
-            dataSource?.hikariConfigMXBean?.maximumPoolSize ?: 0
-        } catch (ex: Exception) {
-            0
-        }
+        val dbConnectionsMax =
+            try {
+                dataSource?.hikariConfigMXBean?.maximumPoolSize ?: 0
+            } catch (ex: Exception) {
+                0
+            }
         val queueTasksPending = taskQueue?.size ?: 0
 
         return JvmMonitoringData.Application(
@@ -42,7 +45,7 @@ class DefaultApplicationExporter(
             dbConnectionsActive = dbConnectionsActive,
             dbConnectionsMax = dbConnectionsMax,
             queueTasksPending = queueTasksPending,
-            customMetrics = emptyMap()
+            customMetrics = emptyMap(),
         )
     }
 }
