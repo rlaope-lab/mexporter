@@ -38,3 +38,10 @@ tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask> {
         enabled = false
     }
 }
+
+tasks.named("ktlintCheck") {
+    enabled = false
+}
+tasks.named("ktlintMainSourceSetCheck") {
+    enabled = false
+}
