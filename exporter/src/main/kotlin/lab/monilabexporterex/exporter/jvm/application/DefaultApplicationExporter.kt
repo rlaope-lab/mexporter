@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class DefaultApplicationExporter(
     private val meterRegistry: MeterRegistry,
     private val dataSource: HikariDataSource? = null,
-    private val taskQueue: BlockingQueue<*>? = null
+    private val taskQueue: BlockingQueue<*>? = null,
 ) : ApplicationExporter {
     override fun getApplicationInfo(): JvmMonitoringData.Application {
         val httpRequestsTimer = meterRegistry.find("http.server.requests").timer()

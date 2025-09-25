@@ -9,7 +9,6 @@ import oshi.SystemInfo
 
 @Component
 class DefaultNetworkExporter : NetworkExporter {
-
     private val systemInfo = SystemInfo()
     private val cmdUtil: CmdInterface = CmdFactory.getCmdUtil()
 

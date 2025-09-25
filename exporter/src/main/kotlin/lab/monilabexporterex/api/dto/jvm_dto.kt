@@ -9,7 +9,7 @@ data class MemoryResponse(
     val survivor: Long,
     val old: Long,
     val bufferPoolUsed: Long,
-    val maxDirectMemorySize: Long
+    val maxDirectMemorySize: Long,
 )
 
 data class GcResponse(
@@ -19,7 +19,7 @@ data class GcResponse(
     val pause: Long,
     val allocationRate: Double,
     val liveDataSize: Long,
-    val gcStrategy: String
+    val gcStrategy: String,
 )
 
 data class ThreadsResponse(
@@ -29,7 +29,7 @@ data class ThreadsResponse(
     val peakCount: Int,
     val deadlockedCount: Int,
     val cpuTime: Long,
-    val states: Map<String, Int>
+    val states: Map<String, Int>,
 )
 
 data class CpuResponse(
@@ -39,7 +39,7 @@ data class CpuResponse(
     val uptime: Long,
     val startTime: Long,
     val loadAverage: Double,
-    val openFds: Long
+    val openFds: Long,
 )
 
 data class NetworkResponse(
@@ -49,7 +49,7 @@ data class NetworkResponse(
     val tcpConnections: Int,
     val tcpEstablished: Int,
     val openSockets: Int,
-    val preferIPv4: Boolean
+    val preferIPv4: Boolean,
 )
 
 data class ClassLoadingInfoResponse(
@@ -59,7 +59,7 @@ data class ClassLoadingInfoResponse(
     val codeCacheUsed: Long,
     val codeCacheMax: Long,
     val compilationTime: Long,
-    val reservedCodeCacheSize: Long
+    val reservedCodeCacheSize: Long,
 )
 
 data class ApplicationResponse(
@@ -69,5 +69,5 @@ data class ApplicationResponse(
     val dbConnectionsActive: Int,
     val dbConnectionsMax: Int,
     val queueTasksPending: Int,
-    val customMetrics: Map<String, Any>
+    val customMetrics: Map<String, Any>,
 )
