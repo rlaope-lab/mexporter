@@ -2,6 +2,9 @@ plugins {
     kotlin("jvm")
     application
     id("org.jlleitschuh.gradle.ktlint")
+    kotlin("plugin.spring")
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
 }
 
 java {
@@ -11,6 +14,7 @@ java {
 }
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation(project(":exporter"))
