@@ -1,66 +1,26 @@
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.5.5"
-    id("io.spring.dependency-management") version "1.1.7"
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    kotlin("jvm") version "1.9.25" apply false
+    kotlin("plugin.spring") version "1.9.25" apply false
+    id("org.springframework.boot") version "3.5.5" apply false
+    id("io.spring.dependency-management") version "1.1.7" apply false
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.0" apply false
+    id("java")
 }
 
-group = "lab"
-version = "0.0.1-SNAPSHOT"
-description = "monilab-exporter-ex"
+allprojects {
+    group = "lab"
+    version = "0.0.1-SNAPSHOT"
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+    repositories {
+        mavenCentral()
     }
 }
 
-repositories {
-    mavenCentral()
-}
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "java")
 
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("io.micrometer:micrometer-core")
-    implementation("com.zaxxer:HikariCP")
-    implementation("com.github.oshi:oshi-core:6.4.3")
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-ktlint {
-    filter {
-        exclude("**/src/test/**")
-    }
-}
-
-tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask> {
-    if (name.contains("TestSourceSet")) {
-        enabled = false
-    }
-}
-
-gradle.taskGraph.whenReady {
-    if (gradle.startParameter.taskNames.contains("build") &&
-        gradle.startParameter.excludedTaskNames.contains("test")
-    ) {
-        tasks.matching { it.name.startsWith("ktlint") }.configureEach {
-            this.enabled = false
-        }
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 }
