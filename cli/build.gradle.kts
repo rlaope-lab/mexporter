@@ -1,0 +1,37 @@
+plugins {
+    kotlin("jvm")
+    application
+    id("org.jlleitschuh.gradle.ktlint")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+dependencies {
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation(project(":exporter"))
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+application {
+    // CLI 엔트리포인트
+    mainClass.set("lab.cli.MainKt")
+}
+
+ktlint {
+    filter {
+        exclude { entry -> entry.file.path.contains("src/test/") }
+    }
+}
+
+tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask> {
+    if (name.contains("TestSourceSet")) {
+        enabled = false
+    }
+}
