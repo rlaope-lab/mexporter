@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm")
     application
-    id("org.jlleitschuh.gradle.ktlint")
     kotlin("plugin.spring")
     id("org.springframework.boot")
     id("io.spring.dependency-management")

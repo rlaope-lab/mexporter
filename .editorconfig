@@ -1,34 +1,14 @@
-# EditorConfig helps developers define and maintain consistent coding styles
-# across different editors and IDEs.
-
-root = true
+[*]
+charset=utf-8
+insert_final_newline=true
+indent_style=space
+indent_size=4
+end_of_line=lf
+trim_trailing_whitespace=true
+max_line_length=off
 
 [*.{kt,kts}]
-charset = utf-8
-end_of_line = lf
-insert_final_newline = true
-indent_style = space
-indent_size = 4
-continuation_indent_size = 4
-trim_trailing_whitespace = true
-max_line_length = 120
+disabled_rules=import-ordering,no-wildcard-imports,filename
 
-# import 순서 정렬 관련 (ktlint-import-order)
-ij_kotlin_imports_layout=*,java.**,javax.**,kotlin.**,^
-
-# 공식 권장 스타일에 맞춤
-ij_kotlin_allow_trailing_comma = true
-ij_kotlin_allow_trailing_comma_on_call_site = true
-ij_kotlin_space_before_lambda_arrow = true
-ij_kotlin_space_around_operators = true
-ij_kotlin_space_before_for_parentheses = true
-ij_kotlin_space_before_if_parentheses = true
-ij_kotlin_space_before_while_parentheses = true
-ij_kotlin_space_before_catch_parentheses = true
-ij_kotlin_space_before_when_parentheses = true
-ij_kotlin_space_before_try_parentheses = true
-ij_kotlin_align_multiline_parameters = true
-ij_kotlin_align_multiline_extends_list = true
-ij_kotlin_align_multiline_method_parentheses = true
-ij_kotlin_align_multiline_binary_operation = true
-ij_kotlin_align_multiline_assignments = true
+[*.{gradle,sh}]
+indent_size=2

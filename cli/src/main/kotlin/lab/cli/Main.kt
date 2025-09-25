@@ -49,7 +49,7 @@ private fun printSummary(exporter: JvmExporter) = loop {
         Threads: ${threads.count} (Daemon: ${threads.daemonCount})
         =====================
         """.trimIndent()
-           )
+    )
 }
 
 private fun printGc(exporter: JvmExporter) {
