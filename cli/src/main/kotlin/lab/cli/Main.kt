@@ -28,6 +28,8 @@ fun main(args: Array<String>) {
 
 private fun loop(action: () -> Unit) {
     while (true) {
+        print("\u001b[H\u001b[2J")
+        System.out.flush()
         action()
         Thread.sleep(1000) // 1초마다 갱신
     }
