@@ -12,8 +12,9 @@ class DefaultClassLoadingExporter : ClassLoadingExporter {
         val compilationMXBean = ManagementFactory.getCompilationMXBean()
 
         // TODO Code Cache 메모리풀 찾기인데 더 좋은방법 없을까 고민점
-        val codeCachePool = ManagementFactory.getMemoryPoolMXBeans()
-            .find { it.name == "Code Cache" }
+        val codeCachePool =
+            ManagementFactory.getMemoryPoolMXBeans()
+                .find { it.name == "Code Cache" }
 
         val codeCacheUsed = codeCachePool?.usage?.used ?: 0L
         val codeCacheMax = codeCachePool?.usage?.max ?: -1L
@@ -25,8 +26,7 @@ class DefaultClassLoadingExporter : ClassLoadingExporter {
             codeCacheUsed = codeCacheUsed,
             codeCacheMax = codeCacheMax,
             compilationTime = compilationMXBean.totalCompilationTime,
-            reservedCodeCacheSize = reservedCodeCacheSize
+            reservedCodeCacheSize = reservedCodeCacheSize,
         )
     }
 }
-

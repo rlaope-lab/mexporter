@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ExporterController(
-    private val jvmExporter: JvmExporter
+    private val jvmExporter: JvmExporter,
 ) {
     @GetMapping("/memory")
     fun getMemoryInfo(): ResponseEntity<MemoryResponse> {
@@ -23,8 +23,8 @@ class ExporterController(
                 survivor = data.survivor,
                 old = data.old,
                 bufferPoolUsed = data.bufferPoolUsed,
-                maxDirectMemorySize = data.maxDirectMemorySize
-            )
+                maxDirectMemorySize = data.maxDirectMemorySize,
+            ),
         )
     }
 
@@ -39,8 +39,8 @@ class ExporterController(
                 pause = data.pause,
                 allocationRate = data.allocationRate,
                 liveDataSize = data.liveDataSize,
-                gcStrategy = data.gcStrategy
-            )
+                gcStrategy = data.gcStrategy,
+            ),
         )
     }
 
@@ -55,8 +55,8 @@ class ExporterController(
                 peakCount = data.peakCount,
                 deadlockedCount = data.deadlockedCount,
                 cpuTime = data.cpuTime,
-                states = data.states
-            )
+                states = data.states,
+            ),
         )
     }
 
@@ -71,8 +71,8 @@ class ExporterController(
                 uptime = data.uptime,
                 startTime = data.startTime,
                 loadAverage = data.loadAverage,
-                openFds = data.openFds
-            )
+                openFds = data.openFds,
+            ),
         )
     }
 
@@ -87,8 +87,8 @@ class ExporterController(
                 tcpConnections = data.tcpConnections,
                 tcpEstablished = data.tcpEstablished,
                 openSockets = data.openSockets,
-                preferIPv4 = data.preferIPv4
-            )
+                preferIPv4 = data.preferIPv4,
+            ),
         )
     }
 
@@ -103,8 +103,8 @@ class ExporterController(
                 codeCacheUsed = data.codeCacheUsed,
                 codeCacheMax = data.codeCacheMax,
                 compilationTime = data.compilationTime,
-                reservedCodeCacheSize = data.reservedCodeCacheSize
-            )
+                reservedCodeCacheSize = data.reservedCodeCacheSize,
+            ),
         )
     }
 
@@ -119,8 +119,8 @@ class ExporterController(
                 dbConnectionsActive = data.dbConnectionsActive,
                 dbConnectionsMax = data.dbConnectionsMax,
                 queueTasksPending = data.queueTasksPending,
-                customMetrics = data.customMetrics
-            )
+                customMetrics = data.customMetrics,
+            ),
         )
     }
 }
