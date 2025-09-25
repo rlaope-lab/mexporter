@@ -1,10 +1,10 @@
 name: CI (ktlint auto-format & build)
 
-on:
-  pull_request:
-    branches: [ "master" ]
-  push:
-    branches: [ "master" ]
+#on: ci 잠시 무력화 ^^ TODO 모듈 맞춰서 하기
+#  pull_request:
+#    branches: [ "master" ]
+#  push:
+#    branches: [ "master" ]
 
 permissions:
   contents: write   # commit/push 권한
