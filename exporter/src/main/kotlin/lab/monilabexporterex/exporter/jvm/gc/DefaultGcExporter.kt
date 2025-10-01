@@ -3,14 +3,12 @@ package lab.monilabexporterex.exporter.jvm.gc
 import com.sun.management.GarbageCollectionNotificationInfo
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
 import lab.monilabexporterex.exporter.jvm.GcExporter
-import org.springframework.stereotype.Component
 import java.lang.management.GarbageCollectorMXBean
 import java.lang.management.ManagementFactory
 import javax.management.NotificationEmitter
 import javax.management.NotificationListener
 import javax.management.openmbean.CompositeData
 
-@Component
 class DefaultGcExporter : GcExporter {
     /**
      * 호출 시점에만 MXBean 읽기 → 불가능

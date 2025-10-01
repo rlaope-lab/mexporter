@@ -2,11 +2,9 @@ package lab.monilabexporterex.exporter.jvm.thread
 
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
 import lab.monilabexporterex.exporter.jvm.ThreadExporter
-import org.springframework.stereotype.Component
 import java.lang.management.ManagementFactory
 import java.lang.management.ThreadMXBean
 
-@Component
 class DefaultThreadExporter : ThreadExporter {
     override fun getThreadInfo(): JvmMonitoringData.Threads {
         val threadBean: ThreadMXBean = ManagementFactory.getThreadMXBean()
