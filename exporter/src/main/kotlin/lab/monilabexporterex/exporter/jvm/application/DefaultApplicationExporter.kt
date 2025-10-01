@@ -4,11 +4,9 @@ import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.core.instrument.MeterRegistry
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
 import lab.monilabexporterex.exporter.jvm.ApplicationExporter
-import org.springframework.stereotype.Component
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.TimeUnit
 
-@Component
 class DefaultApplicationExporter(
     private val meterRegistry: MeterRegistry,
     private val dataSource: HikariDataSource? = null,

@@ -1,13 +1,16 @@
 package lab.cli
 
-import lab.monilabexporterex.MonilabExporterExApplication
+import lab.monilabexporterex.config.ExporterConfig
 import lab.monilabexporterex.exporter.JvmExporter
+import org.springframework.boot.Banner
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.builder.SpringApplicationBuilder
 
 fun main(args: Array<String>) {
-    val context = SpringApplicationBuilder(MonilabExporterExApplication::class.java)
+    val context = SpringApplicationBuilder(ExporterConfig::class.java)
         .web(WebApplicationType.NONE)
+        .bannerMode(Banner.Mode.OFF)
+        .logStartupInfo(false)
         .run(*args)
 
     val exporter = context.getBean(JvmExporter::class.java)

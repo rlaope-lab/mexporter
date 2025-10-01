@@ -4,10 +4,8 @@ import lab.monilabexporterex.cmd.CmdFactory
 import lab.monilabexporterex.cmd.CmdInterface
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
 import lab.monilabexporterex.exporter.jvm.NetworkExporter
-import org.springframework.stereotype.Component
 import oshi.SystemInfo
 
-@Component
 class DefaultNetworkExporter : NetworkExporter {
     private val systemInfo = SystemInfo()
     private val cmdUtil: CmdInterface = CmdFactory.getCmdUtil()
