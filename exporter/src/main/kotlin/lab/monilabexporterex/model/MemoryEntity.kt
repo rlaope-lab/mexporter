@@ -39,6 +39,6 @@ class MemoryEntity(
     @Column(name = "max_direct_memory_size", nullable = false)
     val maxDirectMemorySize: Long,
 
-    @Column(name = "regist_date_time", nullable = false, updatable = false)
-    var registDateTime: LocalDateTime = LocalDateTime.now()
+    @Column(name = "registered_date_time", nullable = false, updatable = false)
+    var registeredDateTime: LocalDateTime = LocalDateTime.now()
 )

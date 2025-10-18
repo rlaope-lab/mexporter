@@ -33,6 +33,6 @@ class ClassLoadingInfoEntity(
     @Column(name = "reserved_code_cache_size", nullable = false)
     val reservedCodeCacheSize: Long,
 
-    @Column(name = "regist_date_time", nullable = false, updatable = false)
-    var registDateTime: LocalDateTime = LocalDateTime.now()
+    @Column(name = "registered_date_time", nullable = false, updatable = false)
+    var registeredDateTime: LocalDateTime = LocalDateTime.now()
 )
