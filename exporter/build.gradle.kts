@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
+    kotlin("plugin.jpa") version "1.9.24"
     id("org.springframework.boot")
     id("io.spring.dependency-management")
 }
@@ -11,10 +12,16 @@ java {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("com.mysql:mysql-connector-j")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("io.micrometer:micrometer-core")
     implementation("com.zaxxer:HikariCP")
@@ -41,4 +48,10 @@ tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask> {
     if (name.contains("TestSourceSet")) {
         enabled = false
     }
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
 }
