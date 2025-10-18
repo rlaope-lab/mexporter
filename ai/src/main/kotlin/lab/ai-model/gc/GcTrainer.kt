@@ -16,9 +16,7 @@ class GcTrainer {
     private var model: LogisticRegression? = null
     private val log = LoggerFactory.getLogger(GcTrainer::class.java)
 
-    private val projectRootDir: String =
-        File(GcTrainer::class.java.protectionDomain.codeSource.location.toURI())
-            .parentFile.parentFile.parentFile.absolutePath
+    private val projectRootDir: String = System.getProperty("user.dir")
     private val modelDir = File("$projectRootDir/ai-models").apply { mkdirs() }
 
     fun train() {
@@ -66,7 +64,6 @@ class GcTrainer {
 
         log.info("💾 Saved model [$key] → ${file.absolutePath}")
     }
-
 
     private fun getDataList(): List<GcTrainData> {
         // TODO - khope heesung이 만들어준 data get에서 가져와쓰는걸로 수정
