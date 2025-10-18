@@ -1,6 +1,7 @@
 package lab.monilabexporterex.model
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "tb_metric_memory")
@@ -37,4 +38,7 @@ class MemoryEntity(
 
     @Column(name = "max_direct_memory_size", nullable = false)
     val maxDirectMemorySize: Long,
+
+    @Column(name = "regist_date_time", nullable = false, updatable = false)
+    var registDateTime: LocalDateTime = LocalDateTime.now()
 )
