@@ -24,6 +24,8 @@ dependencies {
 
     implementation("com.github.haifengl:smile-core:2.6.0")
     implementation("com.github.haifengl:smile-plot:2.6.0")
+    implementation("com.github.haifengl:smile-data:2.6.0")
+    implementation("com.github.haifengl:smile-anomaly:2.6.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
