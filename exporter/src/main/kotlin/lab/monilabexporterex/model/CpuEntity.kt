@@ -1,6 +1,7 @@
 package lab.monilabexporterex.model
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "tb_metric_cpu")
@@ -31,4 +32,7 @@ class CpuEntity(
 
     @Column(name = "open_fds", nullable = false)
     val openFds: Long,
+
+    @Column(name = "regist_date_time", nullable = false, updatable = false)
+    var registDateTime: LocalDateTime = LocalDateTime.now()
 )

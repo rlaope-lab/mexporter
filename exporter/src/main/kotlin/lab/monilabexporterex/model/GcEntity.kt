@@ -1,6 +1,7 @@
 package lab.monilabexporterex.model
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "tb_metric_gc")
@@ -31,4 +32,7 @@ class GcEntity(
 
     @Column(name = "gc_strategy", nullable = false)
     val gcStrategy: String,
+
+    @Column(name = "regist_date_time", nullable = false, updatable = false)
+    var registDateTime: LocalDateTime = LocalDateTime.now()
 )
