@@ -33,6 +33,6 @@ class CpuEntity(
     @Column(name = "open_fds", nullable = false)
     val openFds: Long,
 
-    @Column(name = "regist_date_time", nullable = false, updatable = false)
-    var registDateTime: LocalDateTime = LocalDateTime.now()
+    @Column(name = "registered_date_time", nullable = false, updatable = false)
+    var registeredDateTime: LocalDateTime = LocalDateTime.now()
 )

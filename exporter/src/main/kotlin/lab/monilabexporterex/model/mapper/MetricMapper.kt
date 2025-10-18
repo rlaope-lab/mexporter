@@ -17,7 +17,7 @@ object JvmMonitoringMapper {
             old = data.old,
             bufferPoolUsed = data.bufferPoolUsed,
             maxDirectMemorySize = data.maxDirectMemorySize,
-            registDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: MemoryEntity): JvmMonitoringData.Memory =
@@ -41,7 +41,7 @@ object JvmMonitoringMapper {
             allocationRate = data.allocationRate,
             liveDataSize = data.liveDataSize,
             gcStrategy = data.gcStrategy,
-            registDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: GcEntity): JvmMonitoringData.Gc =
@@ -63,7 +63,7 @@ object JvmMonitoringMapper {
             deadlockedCount = data.deadlockedCount,
             cpuTime = data.cpuTime,
             states = data.states.toString(),
-            registDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: ThreadsEntity): JvmMonitoringData.Threads =
@@ -95,7 +95,7 @@ object JvmMonitoringMapper {
             startTime = data.startTime,
             loadAverage = data.loadAverage,
             openFds = data.openFds,
-            registDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: CpuEntity): JvmMonitoringData.Cpu =
@@ -117,7 +117,7 @@ object JvmMonitoringMapper {
             tcpEstablished = data.tcpEstablished,
             openSockets = data.openSockets,
             preferIPv4 = data.preferIPv4,
-            registDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: NetworkEntity): JvmMonitoringData.Network =
@@ -139,7 +139,7 @@ object JvmMonitoringMapper {
             codeCacheMax = data.codeCacheMax,
             compilationTime = data.compilationTime,
             reservedCodeCacheSize = data.reservedCodeCacheSize,
-            registDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: ClassLoadingInfoEntity): JvmMonitoringData.ClassLoadingInfo =
@@ -161,7 +161,7 @@ object JvmMonitoringMapper {
             dbConnectionsMax = data.dbConnectionsMax,
             queueTasksPending = data.queueTasksPending,
             customMetrics = data.customMetrics.toString(),
-            registDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: ApplicationEntity): JvmMonitoringData.Application =

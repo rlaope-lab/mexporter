@@ -33,6 +33,6 @@ class GcEntity(
     @Column(name = "gc_strategy", nullable = false)
     val gcStrategy: String,
 
-    @Column(name = "regist_date_time", nullable = false, updatable = false)
-    var registDateTime: LocalDateTime = LocalDateTime.now()
+    @Column(name = "registered_date_time", nullable = false, updatable = false)
+    var registeredDateTime: LocalDateTime = LocalDateTime.now()
 )
