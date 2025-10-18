@@ -17,7 +17,7 @@ class GcTrainer {
     private val log = LoggerFactory.getLogger(GcTrainer::class.java)
 
     private val projectRootDir: String = System.getProperty("user.dir")
-    private val modelDir = File("$projectRootDir/ai-models").apply { mkdirs() }
+    private val modelDir = File("$projectRootDir/ai-models/gc-model").apply { mkdirs() }
 
     fun train() {
         log.info("Start GcTrainer training...")
