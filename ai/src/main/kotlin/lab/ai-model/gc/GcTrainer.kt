@@ -9,11 +9,12 @@ import smile.data.vector.DoubleVector
 import smile.data.vector.IntVector
 import java.io.File
 import java.io.ObjectOutputStream
+import java.util.*
 
 @Component
 class GcTrainer {
     private val extractor: GcFeatureExtractor by lazy { GcFeatureExtractor }
-    private var model: LogisticRegression? = null
+    private lateinit var model: LogisticRegression
     private val log = LoggerFactory.getLogger(GcTrainer::class.java)
 
     private val projectRootDir: String = System.getProperty("user.dir")
@@ -27,27 +28,57 @@ class GcTrainer {
             return
         }
 
+        if (dataList.any { it.allocationRate.isNaN() || it.allocationRate.isInfinite() }) {
+            log.error("Invalid values (NaN or Infinity) detected in training data.")
+            return
+        }
+
         log.info("Training data size: ${dataList.size}")
         log.info("Sample training data: ${dataList.take(3)}")
 
         val features = dataList.map { extractor.extract(it) }.toTypedArray()
+        val normalizedFeatures = normalize(features)
         val labels = dataList.map { it.label }.toIntArray()
+
         val df = DataFrame.of(
-            DoubleVector.of("count", features.map { it[0] }.toDoubleArray()),
-            DoubleVector.of("time", features.map { it[1] }.toDoubleArray()),
-            DoubleVector.of("pause", features.map { it[2] }.toDoubleArray()),
-            DoubleVector.of("allocationRate", features.map { it[3] }.toDoubleArray()),
-            DoubleVector.of("liveDataSize", features.map { it[4] }.toDoubleArray()),
-            DoubleVector.of("gcStrategy", features.map { it[5] }.toDoubleArray()),
+            DoubleVector.of("count", normalizedFeatures.map { it[0] }.toDoubleArray()),
+            DoubleVector.of("time", normalizedFeatures.map { it[1] }.toDoubleArray()),
+            DoubleVector.of("pause", normalizedFeatures.map { it[2] }.toDoubleArray()),
+            DoubleVector.of("allocationRate", normalizedFeatures.map { it[3] }.toDoubleArray()),
+            DoubleVector.of("liveDataSize", normalizedFeatures.map { it[4] }.toDoubleArray()),
+            DoubleVector.of("gcStrategy", normalizedFeatures.map { it[5] }.toDoubleArray()),
             IntVector.of("label", labels)
         )
 
         val formula = Formula.lhs("label")
-        model = LogisticRegression.fit(formula, df)
+        val props = Properties().apply {
+            // 하이퍼파라미터 설정
+            setProperty("lambda", "1e-4")
+            setProperty("tol", "1e-5")
+            setProperty("maxIter", "500")
+        }
+        model = LogisticRegression.fit(formula, df, props)
         log.info("GcTrainer training completed.")
+
+        val preds = normalizedFeatures.map { model!!.predict(it) }.toIntArray()
+        val accuracy = preds.zip(labels).count { it.first == it.second }.toDouble() / labels.size
+        log.info("📊 Training Accuracy: ${(accuracy * 100)}%")
 
         saveModel("train")
         saveModel("test")
+    }
+
+    private fun normalize(features: Array<DoubleArray>): Array<DoubleArray> {
+        val numFeatures = features.first().size
+        val minVals = DoubleArray(numFeatures) { idx -> features.minOf { it[idx] } }
+        val maxVals = DoubleArray(numFeatures) { idx -> features.maxOf { it[idx] } }
+
+        return features.map { f ->
+            DoubleArray(numFeatures) { i ->
+                if (maxVals[i] == minVals[i]) 0.0
+                else (f[i] - minVals[i]) / (maxVals[i] - minVals[i])
+            }
+        }.toTypedArray()
     }
 
     private fun saveModel(key: String) {
