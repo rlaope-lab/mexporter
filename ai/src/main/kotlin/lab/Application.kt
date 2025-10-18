@@ -3,7 +3,9 @@ package lab
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
+@SpringBootApplication(
+    scanBasePackages = ["lab.api", "lab.`ai-model`"]
+)
 class Application
 
 fun main(args: Array<String>) {

@@ -1,5 +1,6 @@
 package lab.`ai-model`.gc
 
+import lab.`ai-model`.NormalizationUtil
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import smile.classification.LogisticRegression
@@ -12,13 +13,16 @@ import java.io.ObjectOutputStream
 import java.util.*
 
 @Component
-class GcTrainer {
+class GcLogisticRegressionTrainer {
     private val extractor: GcFeatureExtractor by lazy { GcFeatureExtractor }
-    private lateinit var model: LogisticRegression
-    private val log = LoggerFactory.getLogger(GcTrainer::class.java)
+    private val normalizationUtil: NormalizationUtil by lazy { NormalizationUtil }
 
     private val projectRootDir: String = System.getProperty("user.dir")
     private val modelDir = File("$projectRootDir/ai-models/gc-model").apply { mkdirs() }
+
+    private lateinit var model: LogisticRegression
+
+    private val log = LoggerFactory.getLogger(GcLogisticRegressionTrainer::class.java)
 
     fun train() {
         log.info("Start GcTrainer training...")
@@ -37,7 +41,7 @@ class GcTrainer {
         log.info("Sample training data: ${dataList.take(3)}")
 
         val features = dataList.map { extractor.extract(it) }.toTypedArray()
-        val normalizedFeatures = normalize(features)
+        val normalizedFeatures = normalizationUtil.normalize(features)
         val labels = dataList.map { it.label }.toIntArray()
 
         val df = DataFrame.of(
@@ -68,19 +72,6 @@ class GcTrainer {
         saveModel("test")
     }
 
-    private fun normalize(features: Array<DoubleArray>): Array<DoubleArray> {
-        val numFeatures = features.first().size
-        val minVals = DoubleArray(numFeatures) { idx -> features.minOf { it[idx] } }
-        val maxVals = DoubleArray(numFeatures) { idx -> features.maxOf { it[idx] } }
-
-        return features.map { f ->
-            DoubleArray(numFeatures) { i ->
-                if (maxVals[i] == minVals[i]) 0.0
-                else (f[i] - minVals[i]) / (maxVals[i] - minVals[i])
-            }
-        }.toTypedArray()
-    }
-
     private fun saveModel(key: String) {
         val m = model ?: run {
             log.error("Model not trained. Cannot save [$key].")
@@ -96,14 +87,18 @@ class GcTrainer {
         log.info("💾 Saved model [$key] → ${file.absolutePath}")
     }
 
-    private fun getDataList(): List<GcTrainData> {
-        // TODO - khope heesung이 만들어준 data get에서 가져와쓰는걸로 수정
-        return listOf(
-            GcTrainData(100, 400, 30, 1.2, 300_000, "G1", label = 1),
-            GcTrainData(150, 700, 300, 3.8, 1_000_000, "G1", label = 0),
-            GcTrainData(80, 250, 15, 0.8, 200_000, "Parallel", label = 1),
-            GcTrainData(400, 1200, 700, 6.2, 2_000_000, "G1", label = 0),
-            GcTrainData(90, 320, 20, 1.5, 350_000, "Serial", label = 1)
-        )
+    private fun getDataList(isTestSet: Boolean = true): List<GcTrainData> {
+        return if(isTestSet) {
+            listOf(
+                GcTrainData(120, 500, 40, 1.2, 400_000, "G1", label = 1),
+                GcTrainData(200, 800, 350, 3.8, 1_200_000, "G1", label = 1),
+                GcTrainData(85, 260, 12, 0.9, 250_000, "Parallel", label = 1),
+                GcTrainData(600, 1500, 900, 6.8, 2_200_000, "G1", label = 1),
+                GcTrainData(95, 340, 18, 1.4, 370_000, "Serial", label = 1)
+            )
+        } else {
+            // TODO heesung feature
+            listOf()
+        }
     }
 }
