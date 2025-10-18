@@ -18,7 +18,3 @@ spring:
         username: ${DB_USER:root}
         password: ${DB_PASSWORD:12345}
         driver-class-name: com.mysql.cj.jdbc.Driver
-
-    sql:
-        init:
-            mode: always
