@@ -87,14 +87,18 @@ class GcLogisticRegressionTrainer {
         log.info("💾 Saved model [$key] → ${file.absolutePath}")
     }
 
-    private fun getDataList(): List<GcTrainData> {
-        // TODO - khope heesung이 만들어준 data get에서 가져와쓰는걸로 수정
-        return listOf(
-            GcTrainData(100, 400, 30, 1.2, 300_000, "G1", label = 1),
-            GcTrainData(150, 700, 300, 3.8, 1_000_000, "G1", label = 0),
-            GcTrainData(80, 250, 15, 0.8, 200_000, "Parallel", label = 1),
-            GcTrainData(400, 1200, 700, 6.2, 2_000_000, "G1", label = 0),
-            GcTrainData(90, 320, 20, 1.5, 350_000, "Serial", label = 1)
-        )
+    private fun getDataList(isTestSet: Boolean = true): List<GcTrainData> {
+        return if(isTestSet) {
+            listOf(
+                GcTrainData(120, 500, 40, 1.2, 400_000, "G1", label = 1),
+                GcTrainData(200, 800, 350, 3.8, 1_200_000, "G1", label = 1),
+                GcTrainData(85, 260, 12, 0.9, 250_000, "Parallel", label = 1),
+                GcTrainData(600, 1500, 900, 6.8, 2_200_000, "G1", label = 1),
+                GcTrainData(95, 340, 18, 1.4, 370_000, "Serial", label = 1)
+            )
+        } else {
+            // TODO heesung feature
+            listOf()
+        }
     }
 }

@@ -57,14 +57,18 @@ class GcAnomalyDetector {
         log.info("💾 Saved KMeans anomaly model → ${file.absolutePath}")
     }
 
-    private fun getDataList(): List<GcTrainData> {
-        // TODO - 실제 exporter 데이터 연결
-        return listOf(
-            GcTrainData(120, 500, 40, 1.2, 400_000, "G1", label = 1),
-            GcTrainData(200, 800, 350, 3.8, 1_200_000, "G1", label = 1),
-            GcTrainData(85, 260, 12, 0.9, 250_000, "Parallel", label = 1),
-            GcTrainData(600, 1500, 900, 6.8, 2_200_000, "G1", label = 1),
-            GcTrainData(95, 340, 18, 1.4, 370_000, "Serial", label = 1)
-        )
+    private fun getDataList(isTestSet: Boolean = true): List<GcTrainData> {
+        return if(isTestSet) {
+            listOf(
+                GcTrainData(120, 500, 40, 1.2, 400_000, "G1", label = 1),
+                GcTrainData(200, 800, 350, 3.8, 1_200_000, "G1", label = 1),
+                GcTrainData(85, 260, 12, 0.9, 250_000, "Parallel", label = 1),
+                GcTrainData(600, 1500, 900, 6.8, 2_200_000, "G1", label = 1),
+                GcTrainData(95, 340, 18, 1.4, 370_000, "Serial", label = 1)
+            )
+        } else {
+            // TODO heesung feature
+            listOf()
+        }
     }
 }
