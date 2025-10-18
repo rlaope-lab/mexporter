@@ -1,6 +1,7 @@
 package lab.monilabexporterex.model
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "tb_metric_threads")
@@ -32,4 +33,7 @@ class ThreadsEntity(
     @Lob
     @Column(name = "states", columnDefinition = "TEXT", nullable = false)
     val states: String,
+
+    @Column(name = "registered_date_time", nullable = false, updatable = false)
+    var registeredDateTime: LocalDateTime = LocalDateTime.now()
 )

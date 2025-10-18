@@ -2,6 +2,7 @@ package lab.monilabexporterex.mapper
 
 import lab.monilabexporterex.exporter.data.JvmMonitoringData
 import lab.monilabexporterex.model.*
+import java.time.LocalDateTime
 
 object JvmMonitoringMapper {
 
@@ -15,7 +16,8 @@ object JvmMonitoringMapper {
             survivor = data.survivor,
             old = data.old,
             bufferPoolUsed = data.bufferPoolUsed,
-            maxDirectMemorySize = data.maxDirectMemorySize
+            maxDirectMemorySize = data.maxDirectMemorySize,
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: MemoryEntity): JvmMonitoringData.Memory =
@@ -38,7 +40,8 @@ object JvmMonitoringMapper {
             pause = data.pause,
             allocationRate = data.allocationRate,
             liveDataSize = data.liveDataSize,
-            gcStrategy = data.gcStrategy
+            gcStrategy = data.gcStrategy,
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: GcEntity): JvmMonitoringData.Gc =
@@ -59,7 +62,8 @@ object JvmMonitoringMapper {
             peakCount = data.peakCount,
             deadlockedCount = data.deadlockedCount,
             cpuTime = data.cpuTime,
-            states = data.states.toString()
+            states = data.states.toString(),
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: ThreadsEntity): JvmMonitoringData.Threads =
@@ -90,7 +94,8 @@ object JvmMonitoringMapper {
             uptime = data.uptime,
             startTime = data.startTime,
             loadAverage = data.loadAverage,
-            openFds = data.openFds
+            openFds = data.openFds,
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: CpuEntity): JvmMonitoringData.Cpu =
@@ -111,7 +116,8 @@ object JvmMonitoringMapper {
             tcpConnections = data.tcpConnections,
             tcpEstablished = data.tcpEstablished,
             openSockets = data.openSockets,
-            preferIPv4 = data.preferIPv4
+            preferIPv4 = data.preferIPv4,
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: NetworkEntity): JvmMonitoringData.Network =
@@ -132,7 +138,8 @@ object JvmMonitoringMapper {
             codeCacheUsed = data.codeCacheUsed,
             codeCacheMax = data.codeCacheMax,
             compilationTime = data.compilationTime,
-            reservedCodeCacheSize = data.reservedCodeCacheSize
+            reservedCodeCacheSize = data.reservedCodeCacheSize,
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: ClassLoadingInfoEntity): JvmMonitoringData.ClassLoadingInfo =
@@ -153,7 +160,8 @@ object JvmMonitoringMapper {
             dbConnectionsActive = data.dbConnectionsActive,
             dbConnectionsMax = data.dbConnectionsMax,
             queueTasksPending = data.queueTasksPending,
-            customMetrics = data.customMetrics.toString()
+            customMetrics = data.customMetrics.toString(),
+            registeredDateTime = LocalDateTime.now()
         )
 
     fun toData(entity: ApplicationEntity): JvmMonitoringData.Application =
