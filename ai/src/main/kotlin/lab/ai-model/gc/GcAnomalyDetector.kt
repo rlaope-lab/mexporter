@@ -9,7 +9,7 @@ import java.io.File
 import java.io.ObjectOutputStream
 
 @Component
-class GcAnomalyDetectorKMeans {
+class GcAnomalyDetector {
 
     private val extractor: GcFeatureExtractor by lazy { GcFeatureExtractor }
     private val normalizationUtil: NormalizationUtil by lazy { NormalizationUtil }
@@ -19,7 +19,7 @@ class GcAnomalyDetectorKMeans {
 
     private lateinit var model: KMeans
 
-    private val log = LoggerFactory.getLogger(GcAnomalyDetectorKMeans::class.java)
+    private val log = LoggerFactory.getLogger(GcAnomalyDetector::class.java)
 
     fun train(k: Int = 3) {
         log.info("Start GcAnomalyDetector(KMeans) training...")
