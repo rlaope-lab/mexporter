@@ -1,0 +1,24 @@
+spring:
+    application:
+        name: monilab-exporter-ex
+    main:
+        banner-mode: off
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                default_batch_fetch_size: 1000
+                dialect: org.hibernate.dialect.MySQLDialect
+
+    datasource:
+        url: jdbc:mysql://${DB_URL:localhost:3306}/${DB_NAME:monilab}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+        username: ${DB_USER:root}
+        password: ${DB_PASSWORD:12345}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    sql:
+        init:
+            mode: always
