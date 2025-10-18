@@ -1,7 +1,7 @@
 package lab.`ai-model`.gc
 
-import lab.monilabexporterex.exporter.data.JvmMonitoringData
 import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Component
 import smile.classification.LogisticRegression
 import smile.data.DataFrame
 import smile.data.formula.Formula
@@ -10,6 +10,7 @@ import smile.data.vector.IntVector
 import java.io.File
 import java.io.ObjectOutputStream
 
+@Component
 class GcTrainer {
     private val extractor: GcFeatureExtractor by lazy { GcFeatureExtractor }
     private var model: LogisticRegression? = null
