@@ -1,6 +1,7 @@
 package lab.monilabexporterex.model
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "tb_metric_network")
@@ -31,4 +32,7 @@ class NetworkEntity(
 
     @Column(name = "prefer_ipv4", nullable = false)
     val preferIPv4: Boolean,
+
+    @Column(name = "registered_date_time", nullable = false, updatable = false)
+    var registeredDateTime: LocalDateTime = LocalDateTime.now()
 )
