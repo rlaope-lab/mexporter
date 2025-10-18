@@ -1,5 +1,6 @@
 package lab.`ai-model`.gc
 
+import lab.`ai-model`.NormalizationUtil
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import smile.classification.LogisticRegression
@@ -12,13 +13,16 @@ import java.io.ObjectOutputStream
 import java.util.*
 
 @Component
-class GcTrainer {
+class GcLogisticRegressionTrainer {
     private val extractor: GcFeatureExtractor by lazy { GcFeatureExtractor }
-    private lateinit var model: LogisticRegression
-    private val log = LoggerFactory.getLogger(GcTrainer::class.java)
+    private val normalizationUtil: NormalizationUtil by lazy { NormalizationUtil }
 
     private val projectRootDir: String = System.getProperty("user.dir")
     private val modelDir = File("$projectRootDir/ai-models/gc-model").apply { mkdirs() }
+
+    private lateinit var model: LogisticRegression
+
+    private val log = LoggerFactory.getLogger(GcLogisticRegressionTrainer::class.java)
 
     fun train() {
         log.info("Start GcTrainer training...")
@@ -37,7 +41,7 @@ class GcTrainer {
         log.info("Sample training data: ${dataList.take(3)}")
 
         val features = dataList.map { extractor.extract(it) }.toTypedArray()
-        val normalizedFeatures = normalize(features)
+        val normalizedFeatures = normalizationUtil.normalize(features)
         val labels = dataList.map { it.label }.toIntArray()
 
         val df = DataFrame.of(
@@ -66,19 +70,6 @@ class GcTrainer {
 
         saveModel("train")
         saveModel("test")
-    }
-
-    private fun normalize(features: Array<DoubleArray>): Array<DoubleArray> {
-        val numFeatures = features.first().size
-        val minVals = DoubleArray(numFeatures) { idx -> features.minOf { it[idx] } }
-        val maxVals = DoubleArray(numFeatures) { idx -> features.maxOf { it[idx] } }
-
-        return features.map { f ->
-            DoubleArray(numFeatures) { i ->
-                if (maxVals[i] == minVals[i]) 0.0
-                else (f[i] - minVals[i]) / (maxVals[i] - minVals[i])
-            }
-        }.toTypedArray()
     }
 
     private fun saveModel(key: String) {
