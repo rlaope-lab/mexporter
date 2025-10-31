@@ -56,10 +56,6 @@ jobs:
                     git commit -m "chore: auto-format by ktlint (CI)"
                     git push origin HEAD:${{ github.head_ref }}
                   fi
-
-            #########################################
-            # ② Manual trigger일 때: 선택 모듈만 빌드
-            #########################################
             - name: Selective build (manual trigger)
               if: github.event_name == 'workflow_dispatch'
               run: |
