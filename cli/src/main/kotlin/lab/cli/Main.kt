@@ -7,11 +7,12 @@ import org.springframework.boot.WebApplicationType
 import org.springframework.boot.builder.SpringApplicationBuilder
 
 fun main(args: Array<String>) {
-    val context = SpringApplicationBuilder(ExporterConfig::class.java)
-        .web(WebApplicationType.NONE)
-        .bannerMode(Banner.Mode.OFF)
-        .logStartupInfo(false)
-        .run(*args)
+    val context =
+        SpringApplicationBuilder(ExporterConfig::class.java)
+            .web(WebApplicationType.NONE)
+            .bannerMode(Banner.Mode.OFF)
+            .logStartupInfo(false)
+            .run(*args)
 
     val exporter = context.getBean(JvmExporter::class.java)
 
@@ -38,24 +39,25 @@ private fun loop(action: () -> Unit) {
     }
 }
 
-private fun printSummary(exporter: JvmExporter) = loop {
-    val mem = exporter.getMemoryInfo()
-    val gc = exporter.getGcInfo()
-    val cpu = exporter.getCpuInfo()
-    val threads = exporter.getThreadInfo()
+private fun printSummary(exporter: JvmExporter) =
+    loop {
+        val mem = exporter.getMemoryInfo()
+        val gc = exporter.getGcInfo()
+        val cpu = exporter.getCpuInfo()
+        val threads = exporter.getThreadInfo()
 
-    println(
-        """
-        ==== JVM Summary ====
-        Host: ${exporter.getHostname()}
-        Memory Used: ${mem.used / 1024 / 1024} MB / ${mem.max / 1024 / 1024} MB
-        GC Count: ${gc.count}, Time: ${gc.time} ms
-        CPU Usage: ${"%.2f".format(cpu.processUsage * 100)} %
-        Threads: ${threads.count} (Daemon: ${threads.daemonCount})
-        =====================
-        """.trimIndent()
-    )
-}
+        println(
+            """
+            ==== JVM Summary ====
+            Host: ${exporter.getHostname()}
+            Memory Used: ${mem.used / 1024 / 1024} MB / ${mem.max / 1024 / 1024} MB
+            GC Count: ${gc.count}, Time: ${gc.time} ms
+            CPU Usage: ${"%.2f".format(cpu.processUsage * 100)} %
+            Threads: ${threads.count} (Daemon: ${threads.daemonCount})
+            =====================
+            """.trimIndent(),
+        )
+    }
 
 private fun printGc(exporter: JvmExporter) {
     val gc = exporter.getGcInfo()

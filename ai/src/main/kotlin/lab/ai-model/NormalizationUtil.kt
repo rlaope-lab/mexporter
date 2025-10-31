@@ -8,8 +8,11 @@ object NormalizationUtil {
 
         return features.map { f ->
             DoubleArray(numFeatures) { i ->
-                if (maxVals[i] == minVals[i]) 0.0
-                else (f[i] - minVals[i]) / (maxVals[i] - minVals[i])
+                if (maxVals[i] == minVals[i]) {
+                    0.0
+                } else {
+                    (f[i] - minVals[i]) / (maxVals[i] - minVals[i])
+                }
             }
         }.toTypedArray()
     }

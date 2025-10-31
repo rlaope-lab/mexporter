@@ -7,5 +7,5 @@ data class GcTrainData(
     val allocationRate: Double,
     val liveDataSize: Long,
     val gcStrategy: String,
-    val label: Int // 1 정상, 0 비정상
+    val label: Int, // 1 정상, 0 비정상
 )

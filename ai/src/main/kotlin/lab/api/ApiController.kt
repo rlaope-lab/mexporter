@@ -11,10 +11,11 @@ class ApiController(
     private val gcLogisticRegressionTrainer: GcLogisticRegressionTrainer,
     private val gcAnomalyDetector: GcAnomalyDetector,
 ) {
-
     @GetMapping("/api/train")
-    fun train(@RequestParam trainModelName: String?) {
-        when(trainModelName) {
+    fun train(
+        @RequestParam trainModelName: String?,
+    ) {
+        when (trainModelName) {
             "gc_logistic_regression" -> gcLogisticRegressionTrainer.train()
             "gc_anomaly_detector" -> gcAnomalyDetector.train()
             else -> throw IllegalArgumentException("Unknown model name: $trainModelName")
