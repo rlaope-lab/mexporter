@@ -34,9 +34,6 @@ jobs:
             - name: Ensure gradlew executable
               run: chmod +x ./gradlew
 
-            #########################################
-            # ① Pull Request일 때: Lint만 수행
-            #########################################
             - name: Run ktlint (on Pull Request)
               if: github.event_name == 'pull_request'
               run: |
