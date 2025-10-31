@@ -75,11 +75,7 @@ class GcLogisticRegressionTrainer {
     }
 
     private fun saveModel(key: String) {
-        val m =
-            model ?: run {
-                log.error("Model not trained. Cannot save [$key].")
-                return
-            }
+        val m = model
 
         val file = File(modelDir, "gc_$key.model")
 
