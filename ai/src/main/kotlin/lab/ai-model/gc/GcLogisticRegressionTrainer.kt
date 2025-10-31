@@ -44,23 +44,25 @@ class GcLogisticRegressionTrainer {
         val normalizedFeatures = normalizationUtil.normalize(features)
         val labels = dataList.map { it.label }.toIntArray()
 
-        val df = DataFrame.of(
-            DoubleVector.of("count", normalizedFeatures.map { it[0] }.toDoubleArray()),
-            DoubleVector.of("time", normalizedFeatures.map { it[1] }.toDoubleArray()),
-            DoubleVector.of("pause", normalizedFeatures.map { it[2] }.toDoubleArray()),
-            DoubleVector.of("allocationRate", normalizedFeatures.map { it[3] }.toDoubleArray()),
-            DoubleVector.of("liveDataSize", normalizedFeatures.map { it[4] }.toDoubleArray()),
-            DoubleVector.of("gcStrategy", normalizedFeatures.map { it[5] }.toDoubleArray()),
-            IntVector.of("label", labels)
-        )
+        val df =
+            DataFrame.of(
+                DoubleVector.of("count", normalizedFeatures.map { it[0] }.toDoubleArray()),
+                DoubleVector.of("time", normalizedFeatures.map { it[1] }.toDoubleArray()),
+                DoubleVector.of("pause", normalizedFeatures.map { it[2] }.toDoubleArray()),
+                DoubleVector.of("allocationRate", normalizedFeatures.map { it[3] }.toDoubleArray()),
+                DoubleVector.of("liveDataSize", normalizedFeatures.map { it[4] }.toDoubleArray()),
+                DoubleVector.of("gcStrategy", normalizedFeatures.map { it[5] }.toDoubleArray()),
+                IntVector.of("label", labels),
+            )
 
         val formula = Formula.lhs("label")
-        val props = Properties().apply {
-            // 하이퍼파라미터 설정
-            setProperty("lambda", "1e-4")
-            setProperty("tol", "1e-5")
-            setProperty("maxIter", "500")
-        }
+        val props =
+            Properties().apply {
+                // 하이퍼파라미터 설정
+                setProperty("lambda", "1e-4")
+                setProperty("tol", "1e-5")
+                setProperty("maxIter", "500")
+            }
         model = LogisticRegression.fit(formula, df, props)
         log.info("GcTrainer training completed.")
 
@@ -73,10 +75,11 @@ class GcLogisticRegressionTrainer {
     }
 
     private fun saveModel(key: String) {
-        val m = model ?: run {
-            log.error("Model not trained. Cannot save [$key].")
-            return
-        }
+        val m =
+            model ?: run {
+                log.error("Model not trained. Cannot save [$key].")
+                return
+            }
 
         val file = File(modelDir, "gc_$key.model")
 
@@ -88,13 +91,13 @@ class GcLogisticRegressionTrainer {
     }
 
     private fun getDataList(isTestSet: Boolean = true): List<GcTrainData> {
-        return if(isTestSet) {
+        return if (isTestSet) {
             listOf(
                 GcTrainData(120, 500, 40, 1.2, 400_000, "G1", label = 1),
                 GcTrainData(200, 800, 350, 3.8, 1_200_000, "G1", label = 1),
                 GcTrainData(85, 260, 12, 0.9, 250_000, "Parallel", label = 1),
                 GcTrainData(600, 1500, 900, 6.8, 2_200_000, "G1", label = 1),
-                GcTrainData(95, 340, 18, 1.4, 370_000, "Serial", label = 1)
+                GcTrainData(95, 340, 18, 1.4, 370_000, "Serial", label = 1),
             )
         } else {
             // TODO heesung feature

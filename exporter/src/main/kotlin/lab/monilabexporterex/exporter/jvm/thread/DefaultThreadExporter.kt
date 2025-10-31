@@ -27,17 +27,17 @@ class DefaultThreadExporter : ThreadExporter {
             peakCount = threadBean.peakThreadCount,
             deadlockedCount = threadBean.findDeadlockedThreads()?.size ?: 0,
             cpuTime =
-            if (threadBean.isThreadCpuTimeSupported) {
-                threadBean.allThreadIds.sumOf { id ->
-                    try {
-                        threadBean.getThreadCpuTime(id).takeIf { it > 0 } ?: 0
-                    } catch (_: Exception) {
-                        0
+                if (threadBean.isThreadCpuTimeSupported) {
+                    threadBean.allThreadIds.sumOf { id ->
+                        try {
+                            threadBean.getThreadCpuTime(id).takeIf { it > 0 } ?: 0
+                        } catch (_: Exception) {
+                            0
+                        }
                     }
-                }
-            } else {
-                0
-            },
+                } else {
+                    0
+                },
             states = states,
         )
     }

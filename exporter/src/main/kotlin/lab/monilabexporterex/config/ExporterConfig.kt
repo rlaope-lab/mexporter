@@ -25,7 +25,7 @@ class ExporterConfig {
     fun applicationExporter(
         meterRegistry: MeterRegistry,
         dataSource: HikariDataSource? = null,
-        taskQueue: BlockingQueue<*>? = null
+        taskQueue: BlockingQueue<*>? = null,
     ): ApplicationExporter = DefaultApplicationExporter(meterRegistry, dataSource, taskQueue)
 
     @Bean
@@ -54,14 +54,15 @@ class ExporterConfig {
         cpuExporter: CpuExporter,
         classLoadingExporter: ClassLoadingExporter,
         networkExporter: NetworkExporter,
-        applicationExporter: ApplicationExporter
-    ): JvmExporter = JvmExporterImpl(
-        memoryExporter,
-        gcExporter,
-        threadExporter,
-        cpuExporter,
-        classLoadingExporter,
-        networkExporter,
-        applicationExporter
-    )
+        applicationExporter: ApplicationExporter,
+    ): JvmExporter =
+        JvmExporterImpl(
+            memoryExporter,
+            gcExporter,
+            threadExporter,
+            cpuExporter,
+            classLoadingExporter,
+            networkExporter,
+            applicationExporter,
+        )
 }
