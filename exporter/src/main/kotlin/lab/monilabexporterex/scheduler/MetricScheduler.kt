@@ -16,9 +16,8 @@ class JvmMonitoringScheduler(
     private val cpuRepository: CpuRepository,
     private val networkRepository: NetworkRepository,
     private val classLoadingRepository: ClassLoadingInfoRepository,
-    private val applicationRepository: ApplicationRepository
+    private val applicationRepository: ApplicationRepository,
 ) {
-
     @Scheduled(fixedRate = 1000)
     fun collectAndSaveJvmMetrics() {
         val memoryEntity = JvmMonitoringMapper.toEntity(jvmExporter.getMemoryInfo(), TEST)
@@ -42,5 +41,4 @@ class JvmMonitoringScheduler(
         val applicationEntity = JvmMonitoringMapper.toEntity(jvmExporter.getApplicationInfo(), TEST)
         applicationRepository.save(applicationEntity)
     }
-
 }

@@ -5,8 +5,10 @@ import lab.monilabexporterex.model.*
 import java.time.LocalDateTime
 
 object JvmMonitoringMapper {
-
-    fun toEntity(data: JvmMonitoringData.Memory, label: Label): MemoryEntity =
+    fun toEntity(
+        data: JvmMonitoringData.Memory,
+        label: Label,
+    ): MemoryEntity =
         MemoryEntity(
             label = label,
             used = data.used,
@@ -17,7 +19,7 @@ object JvmMonitoringMapper {
             old = data.old,
             bufferPoolUsed = data.bufferPoolUsed,
             maxDirectMemorySize = data.maxDirectMemorySize,
-            registeredDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now(),
         )
 
     fun toData(entity: MemoryEntity): JvmMonitoringData.Memory =
@@ -29,10 +31,13 @@ object JvmMonitoringMapper {
             survivor = entity.survivor,
             old = entity.old,
             bufferPoolUsed = entity.bufferPoolUsed,
-            maxDirectMemorySize = entity.maxDirectMemorySize
+            maxDirectMemorySize = entity.maxDirectMemorySize,
         )
 
-    fun toEntity(data: JvmMonitoringData.Gc, label: Label): GcEntity =
+    fun toEntity(
+        data: JvmMonitoringData.Gc,
+        label: Label,
+    ): GcEntity =
         GcEntity(
             label = label,
             count = data.count,
@@ -41,7 +46,7 @@ object JvmMonitoringMapper {
             allocationRate = data.allocationRate,
             liveDataSize = data.liveDataSize,
             gcStrategy = data.gcStrategy,
-            registeredDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now(),
         )
 
     fun toData(entity: GcEntity): JvmMonitoringData.Gc =
@@ -51,10 +56,13 @@ object JvmMonitoringMapper {
             pause = entity.pause,
             allocationRate = entity.allocationRate,
             liveDataSize = entity.liveDataSize,
-            gcStrategy = entity.gcStrategy
+            gcStrategy = entity.gcStrategy,
         )
 
-    fun toEntity(data: JvmMonitoringData.Threads, label: Label): ThreadsEntity =
+    fun toEntity(
+        data: JvmMonitoringData.Threads,
+        label: Label,
+    ): ThreadsEntity =
         ThreadsEntity(
             label = label,
             count = data.count,
@@ -63,7 +71,7 @@ object JvmMonitoringMapper {
             deadlockedCount = data.deadlockedCount,
             cpuTime = data.cpuTime,
             states = data.states.toString(),
-            registeredDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now(),
         )
 
     fun toData(entity: ThreadsEntity): JvmMonitoringData.Threads =
@@ -73,7 +81,7 @@ object JvmMonitoringMapper {
             peakCount = entity.peakCount,
             deadlockedCount = entity.deadlockedCount,
             cpuTime = entity.cpuTime,
-            states = parseStates(entity.states)
+            states = parseStates(entity.states),
         )
 
     private fun parseStates(json: String): Map<String, Int> {
@@ -86,7 +94,10 @@ object JvmMonitoringMapper {
             }.toMap()
     }
 
-    fun toEntity(data: JvmMonitoringData.Cpu, label: Label): CpuEntity =
+    fun toEntity(
+        data: JvmMonitoringData.Cpu,
+        label: Label,
+    ): CpuEntity =
         CpuEntity(
             label = label,
             processUsage = data.processUsage,
@@ -95,7 +106,7 @@ object JvmMonitoringMapper {
             startTime = data.startTime,
             loadAverage = data.loadAverage,
             openFds = data.openFds,
-            registeredDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now(),
         )
 
     fun toData(entity: CpuEntity): JvmMonitoringData.Cpu =
@@ -105,10 +116,13 @@ object JvmMonitoringMapper {
             uptime = entity.uptime,
             startTime = entity.startTime,
             loadAverage = entity.loadAverage,
-            openFds = entity.openFds
+            openFds = entity.openFds,
         )
 
-    fun toEntity(data: JvmMonitoringData.Network, label: Label): NetworkEntity =
+    fun toEntity(
+        data: JvmMonitoringData.Network,
+        label: Label,
+    ): NetworkEntity =
         NetworkEntity(
             label = label,
             bytesSent = data.bytesSent,
@@ -117,7 +131,7 @@ object JvmMonitoringMapper {
             tcpEstablished = data.tcpEstablished,
             openSockets = data.openSockets,
             preferIPv4 = data.preferIPv4,
-            registeredDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now(),
         )
 
     fun toData(entity: NetworkEntity): JvmMonitoringData.Network =
@@ -127,10 +141,13 @@ object JvmMonitoringMapper {
             tcpConnections = entity.tcpConnections,
             tcpEstablished = entity.tcpEstablished,
             openSockets = entity.openSockets,
-            preferIPv4 = entity.preferIPv4
+            preferIPv4 = entity.preferIPv4,
         )
 
-    fun toEntity(data: JvmMonitoringData.ClassLoadingInfo, label: Label): ClassLoadingInfoEntity =
+    fun toEntity(
+        data: JvmMonitoringData.ClassLoadingInfo,
+        label: Label,
+    ): ClassLoadingInfoEntity =
         ClassLoadingInfoEntity(
             label = label,
             loaded = data.loaded,
@@ -139,7 +156,7 @@ object JvmMonitoringMapper {
             codeCacheMax = data.codeCacheMax,
             compilationTime = data.compilationTime,
             reservedCodeCacheSize = data.reservedCodeCacheSize,
-            registeredDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now(),
         )
 
     fun toData(entity: ClassLoadingInfoEntity): JvmMonitoringData.ClassLoadingInfo =
@@ -149,10 +166,13 @@ object JvmMonitoringMapper {
             codeCacheUsed = entity.codeCacheUsed,
             codeCacheMax = entity.codeCacheMax,
             compilationTime = entity.compilationTime,
-            reservedCodeCacheSize = entity.reservedCodeCacheSize
+            reservedCodeCacheSize = entity.reservedCodeCacheSize,
         )
 
-    fun toEntity(data: JvmMonitoringData.Application, label: Label): ApplicationEntity =
+    fun toEntity(
+        data: JvmMonitoringData.Application,
+        label: Label,
+    ): ApplicationEntity =
         ApplicationEntity(
             label = label,
             httpRequestsCount = data.httpRequestsCount,
@@ -161,7 +181,7 @@ object JvmMonitoringMapper {
             dbConnectionsMax = data.dbConnectionsMax,
             queueTasksPending = data.queueTasksPending,
             customMetrics = data.customMetrics.toString(),
-            registeredDateTime = LocalDateTime.now()
+            registeredDateTime = LocalDateTime.now(),
         )
 
     fun toData(entity: ApplicationEntity): JvmMonitoringData.Application =
@@ -171,7 +191,7 @@ object JvmMonitoringMapper {
             dbConnectionsActive = entity.dbConnectionsActive,
             dbConnectionsMax = entity.dbConnectionsMax,
             queueTasksPending = entity.queueTasksPending,
-            customMetrics = parseCustomMetrics(entity.customMetrics)
+            customMetrics = parseCustomMetrics(entity.customMetrics),
         )
 
     private fun parseCustomMetrics(json: String): Map<String, Any> {

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController
 class MetricController(
     private val metricService: MetricService,
 ) {
-
     @GetMapping("/metric")
     fun getGcMetrics(): ResponseEntity<List<GcMetricResponse>> {
         val data = metricService.getAllGcMetrics()

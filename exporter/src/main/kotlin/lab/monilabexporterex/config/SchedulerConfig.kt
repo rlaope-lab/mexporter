@@ -6,7 +6,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
 
 @Configuration
 class SchedulerConfig {
-
     @Bean
     fun taskScheduler(): ThreadPoolTaskScheduler {
         val scheduler = ThreadPoolTaskScheduler()
@@ -14,5 +13,4 @@ class SchedulerConfig {
         scheduler.setThreadNamePrefix("metric-scheduler-")
         return scheduler
     }
-
 }
