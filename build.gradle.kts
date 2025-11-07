@@ -31,8 +31,6 @@ subprojects {
     }
 }
 
-
-
 abstract class FindBuildModuleTask @Inject constructor(
     private val execOps: ExecOperations
 ) : DefaultTask() {
